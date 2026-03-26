@@ -2,7 +2,11 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
+<<<<<<< HEAD
+name: 'my_toy_project'
+=======
 name: 'my_new_project'
+>>>>>>> 7ac0fe312fc889a47c9219833c267dd17444828f
 version: '1.0.0'
 config-version: 2
 
@@ -25,6 +29,16 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "dbt_packages"
 
 
+<<<<<<< HEAD
+models:
+  my_toy_project:
+    staging:
+        +materialized: table
+        +schema: staging      # Optional: puts these in a 'staging' dataset
+    marts:
+        +materialized: table
+        +schema: marts 
+=======
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 
@@ -40,3 +54,4 @@ models:
     # Applies to all files under models/example/
     example:
       +materialized: table
+>>>>>>> 7ac0fe312fc889a47c9219833c267dd17444828f
