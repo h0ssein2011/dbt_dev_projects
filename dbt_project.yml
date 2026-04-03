@@ -4,6 +4,7 @@ name: 'my_toy_project'
 version: '1.0.0'
 config-version: 2
 
+
 # This setting configures which "profile" dbt uses for this project.
 profile: 'default'
 
@@ -23,10 +24,22 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   my_toy_project:
     staging:
+      staging_Home_task_Bolt:
         +materialized: table
-        +schema: staging      # Optional: puts these in a 'staging' dataset
+        +schema: stg_bht 
+      staging_jaffle_shop:
+        +materialized: view
+        +schema: stg_js
+
     marts:
+      marts_home_task_Bolt:
         +materialized: table
-        +schema: marts 
+        +schema: marts_bht 
+      marts_jaffle_shop:
+        +materialized: table
+        +schema: marts_js 
+
+
+
 
 
