@@ -16,7 +16,6 @@ renamed as (
         old_value,
         new_value,
         changed_by
-
     from source
 
 )
