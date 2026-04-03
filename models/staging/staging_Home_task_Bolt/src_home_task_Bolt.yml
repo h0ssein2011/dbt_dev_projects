@@ -3,7 +3,7 @@ version: 2
 sources:
   - name: raw_data
     database: fifth-being-293608
-    schema: toy_project_raw
+    schema: Bolt_home_Task
     tables:
       - name: company
       - name: users
@@ -11,3 +11,5 @@ sources:
       - name: orders
       - name: orders_try
       - name: company_audit_log
+
+
