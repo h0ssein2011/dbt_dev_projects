@@ -1,3 +1,4 @@
+--stg_js__customers
 {{
     config(
         materialized='view'

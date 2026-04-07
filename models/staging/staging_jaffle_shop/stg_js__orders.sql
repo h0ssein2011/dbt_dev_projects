@@ -1,3 +1,4 @@
+--stg_js__orders
 {{
     config(
         materialized='table'

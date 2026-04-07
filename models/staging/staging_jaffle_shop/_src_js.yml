@@ -19,7 +19,7 @@ sources:
             - unique
             - not_null
           - name: customer
-            data_tests:
+            tests:
             - not_null
           - name: store_id
             data_tests:
