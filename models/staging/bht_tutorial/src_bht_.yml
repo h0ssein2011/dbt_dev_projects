@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: bht_tutorial
+    database: fifth-being-293608
+    schema: Bolt_home_Task
+    tables:
+      - name: company
+      - name: company_audit_log
+      - name: countries
+      - name: orders
+      - name: orders_try
+      - name: users

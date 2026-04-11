@@ -6,7 +6,7 @@
 with customers as (
 select  customer_id
         , customer_name
-from {{ ref('stg_js__customers') }}
+from {{ ref('int_js__customers') }}
 )
 , customer_orders as (
     select customer_id 
@@ -14,7 +14,7 @@ from {{ ref('stg_js__customers') }}
         , date(max(ordered_at)) as last_order_date
         , count(order_id) as number_of_orders
         , sum(order_total) as total_order
-    from {{ ref('stg_js__orders') }}
+    from {{ ref('int_js__orders') }}
     group by 1
 )
 -- ranked customers by number_of_orders

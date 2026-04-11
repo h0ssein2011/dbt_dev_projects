@@ -8,7 +8,7 @@ sources:
       - name: customers
         columns:
           - name: id
-            data_tests:
+            tests:
               - unique
               - not_null
               

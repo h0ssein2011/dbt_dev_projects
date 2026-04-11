@@ -6,12 +6,12 @@
 
 with customers as (
 select *
-from {{ ref('stg_js__customers') }}
+from {{ ref('int_js__customers') }}
 )
 ,
 orders as (
     select *
-    from {{ ref('stg_js__orders') }}
+    from {{ ref('int_js__orders') }}
 )
 
 select o.order_id
