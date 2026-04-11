@@ -6,15 +6,15 @@
 }}
 
 with orders as (
-select id as order_id
-    , customer as customer_id
+select order_id
+    , customer_id
     , ordered_at 
     , store_id
     , subtotal
     , tax_paid 
     , order_total
 
-from {{ source('dbt_tutorial', 'orders') }}
+from {{ ref('stg_js__orders') }}
 )
 select  *
 from orders

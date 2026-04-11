@@ -1,3 +1,4 @@
+--stg_js__customers
 {{
     config(
         materialized='view'
@@ -5,8 +6,8 @@
 }}
 
 with customers as (
-    select id as customer_id,
-    name as customer_name
+    select id,
+    name 
     from {{ source('dbt_tutorial', 'customers') }}
 )
 select *
