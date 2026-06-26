@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: LB_tutorial
+    database: fifth-being-293608
+    schema: LunchBox
+    tables:
+      - name: stg_geography
+      - name: stg_orders
+      - name: stg_payment_attempts	
+      - name: stg_client_company

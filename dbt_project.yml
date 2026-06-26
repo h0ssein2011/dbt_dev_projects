@@ -30,6 +30,7 @@ models:
       staging_jaffle_shop:
         +materialized: view
         +schema: stg_js
+      
 
     marts:
       marts_home_task_Bolt:
