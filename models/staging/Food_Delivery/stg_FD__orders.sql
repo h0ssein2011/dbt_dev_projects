@@ -6,7 +6,7 @@ source as (
 
 ),
 
-renamed as (
+deduplicated as (
 
     select
         order_id,
@@ -14,8 +14,10 @@ renamed as (
         order_placed_at,
         is_batched
     from source
+    where order_id is not null 
+    qualify row_number() over (partition by order_id order by order_placed_at desc ) = 1 
 
 )
 
 select * 
-from renamed
+from deduplicated
