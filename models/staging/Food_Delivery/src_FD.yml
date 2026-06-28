@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: Food_Delivery_proj
+    database: fifth-being-293608
+    schema: Food_Delivery
+    tables:
+      - name: orders
+      - name: riders
+      - name: delivery_events	
