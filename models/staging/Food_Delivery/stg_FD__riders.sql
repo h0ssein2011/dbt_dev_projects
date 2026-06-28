@@ -6,7 +6,7 @@ source as (
 
 ),
 
-renamed as (
+deduplicated as (
 
     select
         rider_id,
@@ -15,7 +15,11 @@ renamed as (
         activated_date
 
     from source
+    where rider_id is not null 
+    qualify row_number() over (partition by rider_id order by activated_date desc ) = 1 
+    
 
 )
 
-select * from renamed
+select * from deduplicated
+where rider_id is not null 

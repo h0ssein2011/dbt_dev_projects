@@ -21,3 +21,4 @@ deduplicated as (
 
 select * 
 from deduplicated
+where order_id is not null 
