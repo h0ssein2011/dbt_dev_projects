@@ -36,6 +36,7 @@ from pivoted
     and dropoff_time > pickup_time
 )
 
+
 select * 
 from valid_durations
 
