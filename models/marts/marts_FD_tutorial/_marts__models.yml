@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: fct_DF__orders
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+      - name: rider_id
+        tests:
+          - not_null
+      - name: delivery_duration_minutes
+        tests:
+          - not_null
+  - name: fct_rider_daily_efficiency
+    columns:
+      - name: rider_id
+        tests:
+          - not_null
+      - name: activity_date
+        tests:
+          - not_null
