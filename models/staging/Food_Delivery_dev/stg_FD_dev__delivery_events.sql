@@ -18,7 +18,8 @@ SELECT
 FROM source
 where rider_id is not null
 qualify row_number() OVER(PARTITION BY order_id, event_type ORDER BY event_timestamp ) =1
-) , joined as (
+)
+, joined as (
 SELECT d.event_id,
         d.order_id,
         d.rider_id,
