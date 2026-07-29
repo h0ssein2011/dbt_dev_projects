@@ -1,11 +1,11 @@
 {{
     config(materialized='table')
     }}
-with 
+with
 
 source as (
-    select * 
-    from {{ ref('stg_FD__orders') }}
+    select *
+    from {{ ref('stg_FD__delivery_events') }}
 )
 , pivoted as (
 
@@ -15,11 +15,11 @@ source as (
     max(case when event_type = 'pickup' then event_timestamp end) as pickup_time,
     max(case when event_type = 'dropoff' then event_timestamp end) as dropoff_time
 
-    from  source    
+    from  source
     group by order_id
 ), duration_calc as (
 
-    select 
+    select
     order_id,
     rider_id,
     pickup_time,
@@ -37,7 +37,7 @@ from pivoted
 )
 
 
-select * 
+select *
 from valid_durations
 
 
