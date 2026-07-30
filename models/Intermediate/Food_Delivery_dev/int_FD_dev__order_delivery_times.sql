@@ -35,6 +35,6 @@ where pickup_time is not NULL
 and dropoff_time is not NULL
 and dropoff_time >= pickup_time -- to handle edge cases including delivery and order at the same time!
 )
-SELECT
+SELECT *
 from valid_durations
 
