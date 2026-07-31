@@ -10,7 +10,7 @@ How it's served: It takes the complex sequential logic from int_rider_activity_s
     config(materialized='table')
     }}
 with source as (
-select order_id
+select order_id,
     rider_id,
     pickup_time,
     dropoff_time,
@@ -27,7 +27,7 @@ select rider_id,
     sum(idle_time) as total_idle_minutes
 
 from source
-group by 1
+group by 1 ,2
 )
 select *
 from grouped
