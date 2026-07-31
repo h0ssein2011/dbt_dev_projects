@@ -42,7 +42,7 @@ select s.order_id
     s.pickup_time,
     s.dropoff_time,
     s.delivery_duration_minutes,
-    case when s.delivery_duration_minutes > 45 then 1 else 0 end is_severe_delay
+    case when s.delivery_duration_minutes > 45 then 1 else 0 end as is_severe_delay
 
 FROM source s
 join orders o on s.order_id = o.order_id
