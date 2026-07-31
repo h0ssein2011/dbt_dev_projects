@@ -9,8 +9,8 @@ with source as (
 
 SELECT order_id
     , max(rider_id) as rider_id
-    , max(case when event_type = 'pickup' then 'event_timestamp' end) as pickup_time
-    , max(case when event_type = 'dropoff' then 'event_timestamp' end) as dropoff_time
+    , TIMESTAMP(max(case when event_type = 'pickup' then 'event_timestamp' end)) as pickup_time
+    , TIMESTAMP(max(case when event_type = 'dropoff' then 'event_timestamp' end)) as dropoff_time
 from source
 GROUP by 1
 
