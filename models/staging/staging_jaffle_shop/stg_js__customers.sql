@@ -7,7 +7,7 @@
 
 with customers as (
     select id,
-    name 
+    name
     from {{ source('dbt_tutorial', 'customers') }}
 )
 select *

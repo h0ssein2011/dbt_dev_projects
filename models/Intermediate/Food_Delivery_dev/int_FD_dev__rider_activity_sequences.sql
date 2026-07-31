@@ -16,7 +16,7 @@ select *
 from {{ ref('int_FD_dev__order_delivery_times') }}
 )
 , lagged as (
-SELECT order_id
+select order_id
     , rider_id
     , pickup_time
     , dropoff_time
@@ -25,15 +25,16 @@ SELECT order_id
 from source
 )
 , idle_time_calculated as (
-SELECT order_id
+select order_id
     , rider_id
     , pickup_time
     , dropoff_time
     , previous_dropoff_time
+    , delivery_duration_minutes
     , case when previous_dropoff_time is not null and pickup_time > previous_dropoff_time then
     timestamp_diff( previous_dropoff_time, pickup_time , minute) else 0 end as idle_time
 from lagged
 )
-SELECT *
+select *
 from idle_time_calculated
 

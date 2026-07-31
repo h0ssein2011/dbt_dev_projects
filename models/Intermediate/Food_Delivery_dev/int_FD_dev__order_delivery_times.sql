@@ -7,17 +7,17 @@ with source as (
 )
 , pivoted as (
 
-SELECT order_id
+select order_id
     , max(rider_id) as rider_id
     , max(case when event_type = 'pickup' then event_timestamp end) as pickup_time
     , max(case when event_type = 'dropoff' then event_timestamp end) as dropoff_time
 from source
-GROUP by 1
+group by 1
 
 )
 ,duration_calculated as (
 
-SELECT order_id
+select order_id
     , rider_id
     , pickup_time
     , dropoff_time
@@ -25,7 +25,7 @@ SELECT order_id
 FROM pivoted
 )
 , valid_durations as (
-SELECT order_id
+select order_id
     , rider_id
     , pickup_time
     , dropoff_time
@@ -35,6 +35,6 @@ where pickup_time is not NULL
 and dropoff_time is not NULL
 and dropoff_time >= pickup_time -- to handle edge cases including delivery and order at the same time!
 )
-SELECT *
+select *
 from valid_durations
 

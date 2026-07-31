@@ -18,34 +18,34 @@ with companies as (
     from {{ ref('stg__LB_client_company') }}
 ),
 attemps as (
-select order_id 
+select order_id
     , status
     , amount_captured
 from {{ ref('stg__LB_payment_attempts') }}
 )
 , orders as  (
 select order_id
-    , company_id 
+    , company_id
     , employee_id
-    , Date(Date_trunc(created_at,month))  as reporting_month 
+    , Date(Date_trunc(created_at,month))  as reporting_month
     ,DATE_DIFF(Date(created_at) , LAG(Date(created_at)) over(partition by company_id order by created_at),Day ) as days_diff
-from {{ ref('stg__LB_orders') }} 
+from {{ ref('stg__LB_orders') }}
 ),
 orders_agg as (
-    select o.company_id 
+    select o.company_id
     , o.reporting_month
     , count(o.order_id) as order_count
     , min(days_diff) as min_days_diff
-    from orders o 
+    from orders o
     join attemps  a on a.order_id = o.order_id
     where a.status ='completed'
     group by 1,2
-), 
+),
 Churn_status as (
-    select company_id 
-    , case when reporting_month = Date(Date_trunc(current_date,month)) and order_count >=20 
+    select company_id
+    , case when reporting_month = Date(Date_trunc(current_date,month)) and order_count >=20
             then 1 else 0 end as active_this_month
-    , case when reporting_month = Date(Date_trunc(date_add(current_date, interval -29 day),month)) and order_count >=20 
+    , case when reporting_month = Date(Date_trunc(date_add(current_date, interval -29 day),month)) and order_count >=20
      then 1 else 0 end as active_last_month
     , min_days_diff
     from orders_agg

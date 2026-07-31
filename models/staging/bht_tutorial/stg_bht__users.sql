@@ -1,4 +1,4 @@
-with 
+with
 
 source as (
 
@@ -19,5 +19,5 @@ renamed as (
 
 )
 
-select * 
+select *
 from renamed

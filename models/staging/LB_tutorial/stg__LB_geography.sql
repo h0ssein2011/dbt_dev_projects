@@ -1,5 +1,5 @@
 --stg_geography.sql
-with 
+with
 
 source as (
 
