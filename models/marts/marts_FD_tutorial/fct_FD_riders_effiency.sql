@@ -9,7 +9,7 @@ with with rider_activity as (
     {{ ref('int_FD__delivery_events') }}
 )
 , daily_aggregated as (
-    select 
+    select
         rider_id
         , cast(pickup_time as date) as activity_date
         , count(order_id) as total_orders_delivered

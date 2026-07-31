@@ -1,7 +1,7 @@
 {{
     config(materialized='table')
     }}
-with 
+with
 
 source as (
 
@@ -9,7 +9,7 @@ source as (
 
 ),
 valid_orders as (
-    select order_id 
+    select order_id
     from {{ ref('stg_FD__orders') }}
 )
 
@@ -25,7 +25,7 @@ deduplicated as (
     where rider_id is not null
     qualify row_number() over(partition by order_id, event_type order by event_timestamp) = 1
 
-) 
+)
 , joined as (
     select d.event_id,
         d.order_id,
@@ -36,5 +36,5 @@ deduplicated as (
     join valid_orders vo on vo.order_id = d.order_id
 )
 
-select * 
+select *
 from joined

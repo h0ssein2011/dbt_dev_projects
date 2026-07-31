@@ -18,12 +18,12 @@ with customers as (
 )
 , final as (
 select c.*
-    ,o.first_order_at 
-    ,o.last_order_at 
+    ,o.first_order_at
+    ,o.last_order_at
     , case when date_diff(current_date() , o.last_order_at  , Day) > 90 then 1 else 0 end as is_churn
-from customers c 
-left join  aggregated_orders o on o.customer_id = c.customer_id 
+from customers c
+left join  aggregated_orders o on o.customer_id = c.customer_id
 
 )
-select * 
-from final 
+select *
+from final

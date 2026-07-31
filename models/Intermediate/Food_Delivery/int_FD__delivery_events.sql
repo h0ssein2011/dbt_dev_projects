@@ -6,7 +6,7 @@ with delivery_time as (
     select * from {{ ref('int_FD__orders') }}
 )
 ,sequenced as (
-    select 
+    select
         rider_id,
         order_id,
         pickup_time,
@@ -18,8 +18,8 @@ from delivery_time
 ),
 idle_time_calculated as (
     select
-    * , case when previous_dropoff_time is not null and pickup_time > previous_dropoff_time 
-    then timestamp_diff(pickup_time, previous_dropoff_time, "MINUTE") else 0 
+    * , case when previous_dropoff_time is not null and pickup_time > previous_dropoff_time
+    then timestamp_diff(pickup_time, previous_dropoff_time, "MINUTE") else 0
     end as idle_time_minutes
     from sequenced
 
@@ -28,4 +28,3 @@ idle_time_calculated as (
 select *
 from idle_time_calculated
 
-    

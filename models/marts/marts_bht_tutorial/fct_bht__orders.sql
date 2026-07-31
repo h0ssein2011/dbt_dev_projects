@@ -23,7 +23,7 @@ with orders as (
     select  order_id,
         admin_id,
         user_id,
-        order_created_at, 
+        order_created_at,
         date(date_trunc(order_created_at , week(monday))) order_week,
         date(date_trunc(order_created_at , month)) order_month
     from {{ ref('stg_bht__orders') }}
@@ -54,13 +54,13 @@ with orders as (
 ),
 order_try_aggregated as (
 select order_id,
-    case when date(order_created_at) >= date(date_trunc(date_sub(current_date() , interval 1 week ), week(monday))) 
+    case when date(order_created_at) >= date(date_trunc(date_sub(current_date() , interval 1 week ), week(monday)))
         and date(order_created_at) < date(date_trunc(current_date(), week(monday))) then 1 else 0 end as is_last_week,
-        case when order_try_status = 'finished' then 1 else 0 end as is_finished_order,    
-    count(order_try_id) as count_try 
+        case when order_try_status = 'finished' then 1 else 0 end as is_finished_order,
+    count(order_try_id) as count_try
 from order_try
 group by 1,2
-    
+
 )
 
 

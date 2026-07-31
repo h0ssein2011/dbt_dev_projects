@@ -11,18 +11,18 @@ What is the average order try per finished order per country over the past week?
 Identify regions where order volume increased or decreased by more than 20% week-over-week over the past month.
 
 which tables are required to cover these:
-- order 
+- order
 - company --> region
-- countries --> region, country name 
+- countries --> region, country name
 -- order try
 -- aggregated :
     orders_try :
-    - revenue per country & region 
+    - revenue per country & region
     - avg order try per country
     - last_week
 
      orders :
-        - count Monthly active user 
+        - count Monthly active user
         - last_week
         - sum order volume weekly growth pct
 */
@@ -61,14 +61,14 @@ from {{ ref('stg_bht__orders') }}
     from {{ ref('stg_bht__order_try') }}
 )
 , orders_cohort_flag as (
-    select o1.order_id 
-            ,o1.user_id 
-            ,case when o1.order_week = date_trunc( DATE_ADD(current_date, INTERVAL -7 DAY) ,week(monday) )   then 1 else 0 end as is_last_week 
-    from orders o1 
-    join orders o2 on o1.user_id = o2.user_id  and o2.order_created_at between DATE_ADD(o1.order_created_at, INTERVAL -30 DAY) and o1.order_created_at 
-    
+    select o1.order_id
+            ,o1.user_id
+            ,case when o1.order_week = date_trunc( DATE_ADD(current_date, INTERVAL -7 DAY) ,week(monday) )   then 1 else 0 end as is_last_week
+    from orders o1
+    join orders o2 on o1.user_id = o2.user_id  and o2.order_created_at between DATE_ADD(o1.order_created_at, INTERVAL -30 DAY) and o1.order_created_at
+
 )
-select 
+select
         o.order_id,
         o.admin_id,
         o.user_id,
@@ -77,13 +77,13 @@ select
         o.order_created_at,
         o.order_week,
         o.order_month,
-        coalesce(ocf.is_last_week,0) as is_last_week, 
+        coalesce(ocf.is_last_week,0) as is_last_week,
         case when ocf.user_id is null then 1 else 0 end as active_last_30d,
         ot.revenue,
         ot.order_try_status
-from order_try ot 
-join orders o on ot.order_id= o.order_id 
-join company c1 on c1.admin_id = o.admin_id 
-join countries c2 on c2.country_code = c1.country_code 
+from order_try ot
+join orders o on ot.order_id= o.order_id
+join company c1 on c1.admin_id = o.admin_id
+join countries c2 on c2.country_code = c1.country_code
 left join orders_cohort_flag ocf on ocf.order_id = o.order_id
 
