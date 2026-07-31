@@ -33,7 +33,7 @@ select  rider_id,
 from {{ ref('stg_FD_dev__riders') }}
 )
 , joined as (
-select s.order_id
+select s.order_id,
     o.customer_id,
     o.is_batched,
     s.rider_id,
