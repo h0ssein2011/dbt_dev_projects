@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: Exprimentation_Analytics_proj
+    database: fifth-being-293608
+    schema: Experimentation_Analytics
+    tables:
+      - name: raw_events
+      - name: raw_experiment_allocations
