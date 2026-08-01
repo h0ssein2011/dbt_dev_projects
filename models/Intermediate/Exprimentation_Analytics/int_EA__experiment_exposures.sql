@@ -17,12 +17,12 @@ select event_id,
     page_url
 from {{ ref('int_EA__user_sessions') }}
 )
-joined as (
+,joined as (
 select bc.user_id,
     bc.experiment_id,
     bc.variant_name,
     bc.allocated_at,
-    e.event_name
+    e.event_name,
     e.timestamp as exposure_timestamp,
     e.device,
     e.page_url
@@ -34,7 +34,7 @@ where  bc.allocated_at >  e.timestamp
 ,first_exposure as (
 select user_id,
        experiment_id,
-       min(exposure_timestamp)
+       min(exposure_timestamp) as first_exposure_timestamp
 from joined
 group by 1,2
 )
@@ -43,7 +43,7 @@ select j.user_id,
     j.experiment_id,
     j.variant_name,
     j.allocated_at,
-    j.event_name
+    j.event_name,
     j.exposure_timestamp as true_exposure_timestamp,
     j.device,
     j.page_url

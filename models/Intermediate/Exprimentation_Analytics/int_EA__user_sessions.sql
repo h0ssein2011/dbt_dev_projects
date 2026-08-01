@@ -8,7 +8,7 @@ with source as (
     timestamp,
     device,
     page_url,
-    lag(timestamp) over(PARTITION by user_id , device order by timestamp) as prev_session
+    lag(timestamp) over(PARTITION by user_id , device order by timestamp) as prev_session,
     lag(event_id) over(PARTITION by user_id , device order by timestamp) as prev_event_id
  from
  {{ ref('stg_EA__raw_events') }}
