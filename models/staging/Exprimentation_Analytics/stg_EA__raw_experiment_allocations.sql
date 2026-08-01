@@ -7,7 +7,7 @@ with source as (
     variant_name,
     allocated_at
  from
- {{ source('Exprimentation_Analytics_proj', 'raw_events') }}
+ {{ source('Exprimentation_Analytics_proj', 'raw_experiment_allocations') }}
 )
 select *
 from source
