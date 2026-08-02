@@ -35,8 +35,8 @@ select a.user_id,
     min(e.exposure_session_id) as exposure_session_id,
     min(e.exposure_timestamp) as true_exposure_timestamp
 from allocations a
-left join exposure_events e on bc.user_id = e.user_id
-     and bc.allocated_at >=  e.timestamp
+left join exposure_events e on a..user_id = e.user_id
+     and a.allocated_at >=  e.timestamp
 group by 1,2,3,4
 )
 , filtered as (
@@ -46,9 +46,8 @@ select user_id || '-' || experiment_id as experiment_user_id,
     variant_name,
     allocated_at,
     event_name,
-    true_exposure_timestamp,
-    device,
-    page_url
+    true_exposure_timestamp
+
 from joined
 where true_exposure_timestamp is not null
 )
