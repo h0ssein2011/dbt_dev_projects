@@ -17,6 +17,7 @@ where true_exposure_timestamp is not null
 , events as  (
 select event_id,
     user_id,
+    session_id,
     event_name,
     timestamp,
     device,
