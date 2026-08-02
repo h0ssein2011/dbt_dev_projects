@@ -40,7 +40,7 @@ left join exposure_events e on bc.user_id = e.user_id
 group by 1,2,3,4
 )
 , filtered as (
-select user_id || '-' || experiment_id as experiment_user_id
+select user_id || '-' || experiment_id as experiment_user_id,
     user_id,
     experiment_id,
     variant_name,
