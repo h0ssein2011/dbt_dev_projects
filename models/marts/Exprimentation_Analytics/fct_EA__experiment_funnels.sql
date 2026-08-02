@@ -21,7 +21,7 @@ select event_id,
     timestamp,
     device,
     page_url,
-    coalesce(revenue,0) as revenue
+    coalesce(cast(revenue as numeric),0) as revenue
 from {{ ref('int_EA__user_sessions') }}
 )
 ,joined as (
