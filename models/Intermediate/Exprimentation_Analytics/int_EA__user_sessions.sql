@@ -8,31 +8,56 @@ with source as (
     timestamp,
     device,
     page_url,
-    lag(timestamp) over(PARTITION by user_id , device order by timestamp) as prev_session,
-    lag(event_id) over(PARTITION by user_id , device order by timestamp) as prev_event_id
+    revenue
  from
  {{ ref('stg_EA__raw_events') }}
 )
-, new_events as (
-select case when timestamp_diff(prev_session , timestamp , minute) <= 30 then prev_event_id else event_id end as event_id,
+,lagged_events as (
+  select event_id,
     user_id,
     event_name,
     timestamp,
     device,
-    page_url
+    page_url,
+    revenue,
+    lag(timestamp) over(partition by user_id order by timestamp) as prev_session
+ from source
+ )
 
-from source
-)
-, deduplicate as (
+, session_flags as (
 select event_id,
     user_id,
     event_name,
     timestamp,
     device,
-    page_url
-from new_events
-qualify row_number() over(PARTITION by user_id ,event_id  order by timestamp) = 1
+    page_url,
+    revenue,
+    case when timestamp_diff(timestamp , prev_session , minute) > 30 then 1 else 0 end as is_new_session,
+
+from lagged_events
 )
-select
- *
- FROM deduplicate
+, session_indices as (
+select event_id,
+    user_id,
+    event_name,
+    timestamp,
+    device,
+    page_url,
+    revenue,
+    sum(is_new_session) over(partition by user_id order by timestamp rows between unbounded preceding and current row) as session_index
+from session_flags
+)
+, final as (
+select event_id,
+    user_id,
+    user_id || "-" ||   cast(session_index as string) as session_id,
+    event_name,
+    timestamp,
+    device,
+    page_url,
+    revenue
+ from session_indices
+ )
+ select
+ * from final
+
