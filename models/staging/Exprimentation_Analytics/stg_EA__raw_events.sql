@@ -17,6 +17,7 @@ select  event_id,
     timestamp,
     JSON_VALUE(properties,'$.device') as device,
     JSON_VALUE(properties,'$.page_url') as page_url,
+    JSON_VALUE(properties,'$.revenue') as revenue
 from source
 )
 select
