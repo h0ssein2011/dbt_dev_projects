@@ -9,7 +9,7 @@ with source as (
     device,
     page_url
  from
- {{ ref('stg_ea__raw_events') }}
+ {{ ref('stg_EA__raw_events') }}
 )
 ,lagged_events as (
   select event_id,

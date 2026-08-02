@@ -6,7 +6,7 @@ select user_id,
     experiment_id,
     variant_name,
     allocated_at
-from {{ ref('stg_ea__raw_experiment_allocations') }}
+from {{ ref('stg_EA__raw_experiment_allocations') }}
 )
 , events as (
 select event_id,
@@ -17,7 +17,7 @@ select event_id,
     device,
     page_url,
     revenue
-from {{ ref('int_ea__user_sessions') }}
+from {{ ref('int_EA__user_sessions') }}
 )
 , exposure_events as (
 select user_id,
