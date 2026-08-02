@@ -32,9 +32,9 @@ select ex.experiment_user_id,
     ex.allocated_at,
     ex.exposure_session_id,
     ex.true_exposure_timestamp,
-    e.session_id,
-    e.event_name,
-    revenue
+    ev.session_id,
+    ev.event_name,
+    ev.revenue
 from exposures ex
 join events ev on ex.user_id = ev.user_id and ev.timestamp > ex.true_exposure_timestamp
 
