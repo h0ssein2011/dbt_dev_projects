@@ -45,7 +45,7 @@ select user_id || '-' || experiment_id as experiment_user_id,
     experiment_id,
     variant_name,
     allocated_at,
-    event_name,
+    exposure_session_id,
     true_exposure_timestamp
 
 from joined
