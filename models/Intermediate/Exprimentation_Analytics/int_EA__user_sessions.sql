@@ -7,7 +7,8 @@ with source as (
     event_name,
     timestamp,
     device,
-    page_url
+    page_url,
+    revenue
  from
  {{ ref('stg_EA__raw_events') }}
 )
@@ -18,6 +19,7 @@ with source as (
     timestamp,
     device,
     page_url,
+    revenue,
     lag(timestamp) over(partition by user_id order by timestamp) as prev_session
  from source
  )
@@ -29,6 +31,7 @@ select event_id,
     timestamp,
     device,
     page_url,
+    revenue,
     case when timestamp_diff(timestamp , prev_session , minute) > 30 then 1 else 0 end as is_new_session,
 
 from lagged_events
@@ -40,6 +43,7 @@ select event_id,
     timestamp,
     device,
     page_url,
+    revenue,
     sum(is_new_session) over(partition by user_id order by timestamp rows between unbounded preceding and current row) as session_index
 from session_flags
 )
@@ -50,7 +54,8 @@ select event_id,
     event_name,
     timestamp,
     device,
-    page_url
+    page_url,
+    revenue
  from session_indices
  )
  select
