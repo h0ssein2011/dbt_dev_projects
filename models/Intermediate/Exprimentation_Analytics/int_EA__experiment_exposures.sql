@@ -36,7 +36,7 @@ select a.user_id,
     min(e.exposure_timestamp) as true_exposure_timestamp
 from allocations a
 left join exposure_events e on a.user_id = e.user_id
-     and a.allocated_at >=  e.timestamp
+     and   e.exposure_timestamp >= a.allocated_at
 group by 1,2,3,4
 )
 , filtered as (
