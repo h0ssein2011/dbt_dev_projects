@@ -53,4 +53,6 @@ select event_id,
     page_url
  from session_indices
  )
+ select
+ * from final
 
