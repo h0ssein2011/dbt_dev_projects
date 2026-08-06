@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: SS_MRR_proj
+    database: fifth-being-293608
+    schema: SS_MRR
+    tables:
+      - name: raw_plans
+      - name: raw_subscriptions
