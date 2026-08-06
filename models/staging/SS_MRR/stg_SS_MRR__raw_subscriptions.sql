@@ -6,7 +6,7 @@ with source as (
         customer_id,
         plan_id,
         start_date,
-        end_date,
+        coalesce(end_date,'2099-12-31'),
         status
  from
  {{ source('SS_MRR_proj', 'raw_subscriptions') }}
