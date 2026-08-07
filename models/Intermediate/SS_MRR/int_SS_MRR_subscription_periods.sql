@@ -1,4 +1,6 @@
-{{ config(materialized='table') }}
+{{
+config(materialized='table')
+}}
 with source as (
 
 select customer_id,
@@ -21,7 +23,7 @@ select sm.month_start as reporting_month,
         plan_id,
         status
 from spin_months sm
-join  source sr on sm between sr.start_date and end_date
+join  source sr on sm.month_start between sr.start_date and sr.end_date
 where end_date <= date_trunc(current_date() , month)
 )
 select *
