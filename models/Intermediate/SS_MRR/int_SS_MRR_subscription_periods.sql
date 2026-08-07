@@ -23,9 +23,9 @@ select sm.month_start as reporting_month,
         plan_id,
         status
 from spin_months sm
-join  source sr
-where sm.month_start between sr.start_date and sr.end_date
-    and end_date <= date_trunc(current_date() , month)
+join  source sr on sm.month_start between sr.start_date and sr.end_date
+where
+    end_date <= date_trunc(current_date() , month)
 )
 select *
 from joined
