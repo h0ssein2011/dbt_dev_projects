@@ -6,7 +6,7 @@ select customer_id,
         start_date,
         end_date,
         status
-from {{ ref('stg_ss_mrr__raw_subscriptions') }}
+from {{ ref('stg_SS_MRR__raw_subscriptions') }}
 
 ), spin_months as (
 
