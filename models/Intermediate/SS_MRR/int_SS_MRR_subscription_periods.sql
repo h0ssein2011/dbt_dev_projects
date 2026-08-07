@@ -15,7 +15,7 @@ from {{ ref('stg_SS_MRR__raw_subscriptions') }}
 select month_start,
     year_val,
     month_val
- {{ ref('spine_months') }}
+from {{ ref('spine_months') }}
 
 ) , joined as (
 select sm.month_start as reporting_month,
